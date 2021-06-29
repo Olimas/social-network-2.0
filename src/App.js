@@ -60,7 +60,7 @@ class App extends Component {
           }/>
           <Route path="/users" render={() =>
             <Suspense fallback={<div><Preloader/> Loading...</div>}>
-              <UsersContainer/>
+              <UsersContainer pageTitle={"Samurai"}/>
             </Suspense>
           }/>
           <Route path="/news" render={() => <News/>}/>
