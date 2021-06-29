@@ -1,0 +1,8 @@
+.friends {
+	min-height: 124px;
+	background-color: yellow;
+	grid-area: f;
+}
+ul {
+  list-style-type: none;
+}

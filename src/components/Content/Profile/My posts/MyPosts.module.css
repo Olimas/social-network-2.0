@@ -1,0 +1,17 @@
+.posts {
+	max-width: 500px;
+	border: 1px solid #000;
+	font-size: 24px;
+}
+.createPost {
+
+}
+.descriptionPost {
+	display: block;
+}
+.addPost {
+
+}
+.removePost {
+
+}

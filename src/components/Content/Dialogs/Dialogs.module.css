@@ -1,0 +1,40 @@
+.dialogs {
+  display: grid;
+  grid-template-columns: 2fr 10fr;
+  /*column-gap: 10px;*/
+}
+
+.dialogItems {
+  padding: 10px;
+}
+
+.dialog {
+  border: 1px solid #000;
+  border-radius: 5px;
+  background-color: #fff;
+  padding: 5px;
+  margin-bottom: 30px;
+}
+
+.dialog.active {
+  color: gold;
+}
+
+.messages {
+  padding: 10px;
+}
+
+.message {
+
+}
+
+.inputMessages {
+  display: block;
+  margin: 0px 0px 10px 0px;
+  width: 300px;
+  height: 100px;
+  border-radius: 5px;
+}
+
+.sendMessage {
+}
