@@ -26,6 +26,10 @@ export type AppStateType = ReturnType<RootReducerType> // dynamically got global
 // state.app
 // state.dialogsPage.messages
 
+type PropertiesTypes<T> = T extends {[key: string]: infer U} ? U: never
+
+export type InferActionsTypes<T extends {[key: string]: (...args: any[]) => any}> = ReturnType<PropertiesTypes<T>>
+
 //* Redux DevTools
 // @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

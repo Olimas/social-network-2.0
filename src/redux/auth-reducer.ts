@@ -1,4 +1,4 @@
-import {authAPI, securityAPI} from "../api/api";
+import {authAPI, ResultCodesEnum, ResultCodesForCaptcha, securityAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 
 const SET_USER_DATA = 'samurai-network/auth/SET_USER_DATA';
@@ -9,7 +9,7 @@ const initialState = {
   email: null as string | null,
   login: null as string | null,
   isAuth: false,
-  captchaUrl: null as string | null,// if null, then captcha is not required
+  captchaUrl: null as string | null, // if null, then captcha is not required
 }
 
 //* Dynamic type create
@@ -48,7 +48,7 @@ export const setAuthUserData = (userId: number | null, email: string | null, log
 
 type GetCaptchaUrlSuccessActionType = {
   type: typeof GET_CAPTCHA_URL_SUCCESS
-  payload: {captchaUrl: string}
+  payload: { captchaUrl: string }
 }
 
 export const getCaptchaUrlSuccess = (captchaUrl: string): GetCaptchaUrlSuccessActionType =>
@@ -59,24 +59,24 @@ export const getCaptchaUrlSuccess = (captchaUrl: string): GetCaptchaUrlSuccessAc
 
 // async await
 export const getAuthUserData = () => async (dispatch: any) => {
-  const response = await authAPI.me();
-  if (response.data.resultCode === 0) {
-    const {id, email, login} = response.data.data;
+  const meData = await authAPI.me();
+  if (meData.resultCode === ResultCodesEnum.Success) {
+    const {id, email, login} = meData.data;
     dispatch(setAuthUserData(id, email, login, true));
   }
 }
 
 //* thunkCreator // thunk
 export const login = (email: string, password: string, rememberMe: boolean, captcha: string) => async (dispatch: any) => {
-  const response = await authAPI.login(email, password, rememberMe, captcha);
-  if (response.data.resultCode === 0) {
+  const loginData = await authAPI.login(email, password, rememberMe, captcha);
+  if (loginData.resultCode === ResultCodesEnum.Success) {
     // success, get auth data
     dispatch(getAuthUserData());
   } else {
-    if (response.data.resultCode === 10) {
+    if (loginData.resultCode === ResultCodesForCaptcha.CaptchaIsRequired) {
       dispatch(getCaptchaUrl());
     }
-    const message = response.data.messages.length > 0 ? response.data.messages[0] : "some error";
+    const message = loginData.messages.length > 0 ? loginData.messages[0] : "some error";
     dispatch(stopSubmit("login", {_error: message}));
   }
 }
