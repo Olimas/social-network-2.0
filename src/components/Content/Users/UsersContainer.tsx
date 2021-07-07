@@ -78,7 +78,7 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
   }
 }
 
-export default compose(
+export default compose<React.ComponentType>(
   withAuthRedirect,
 // <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState>
   connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>

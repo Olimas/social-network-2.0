@@ -1,8 +1,8 @@
 import s from './Aside.module.css'
 import {NavLink} from "react-router-dom";
-import Friends from "./Friends/Friends";
+// import Friends from "./Friends/Friends";
 
-const Aside = (props) => {
+const Aside: React.FC = (props) => {
   return (
     <aside className={s.aside}>
       <ul className={s.itemList}>
