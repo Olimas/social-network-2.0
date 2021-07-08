@@ -13,6 +13,10 @@ export const InitialState = {
   currentPage: 1,
   isFetching: false,
   followingInProgress: [] as Array<number>, // array of users id
+  filter: {
+    term: "",
+    friend: null as null | boolean
+  }
 }
 
 const usersReducer = (state = InitialState, action: ActionsTypes): InitialStateType => {
@@ -31,6 +35,12 @@ const usersReducer = (state = InitialState, action: ActionsTypes): InitialStateT
       return {
         ...state, users: action.users
       }
+
+    case 'SN/USERS/SET_FILTER':
+      return {
+        ...state, filter: action.payload
+      }
+
     case 'SN/USERS/SET_CURRENT_PAGE':
       return {
         ...state, currentPage: action.currentPage
@@ -60,6 +70,9 @@ export const actions = {
   followSuccess: (userId: number) => ({type: 'SN/USERS/FOLLOW', userId} as const),
   unfollowSuccess: (userId: number) => ({type: 'SN/USERS/UNFOLLOW', userId} as const),
   setUsers: (users: Array<UserType>) => ({type: 'SN/USERS/SET_USERS', users} as const),
+
+  setFilter: (filter: FilterType) => ({type: 'SN/USERS/SET_FILTER', payload: filter} as const),
+
   setCurrentPage: (currentPage: number) => ({type: 'SN/USERS/SET_CURRENT_PAGE', currentPage} as const),
   setUsersTotalCount: (totalUsersCount: number) => ({
     type: 'SN/USERS/SET_TOTAL_USERS_COUNT', count: totalUsersCount
@@ -75,10 +88,11 @@ export const actions = {
 }
 
 //* thunks
-export const getUsers = (page: number, pageSize: number): ThunkType => async (dispatch, getState) => {
+export const getUsers = (page: number, pageSize: number, filter: FilterType): ThunkType => async (dispatch, getState) => {
   dispatch(actions.toggleIsFetching(true));
   dispatch(actions.setCurrentPage(page));
-  let data = await usersAPI.getUsers(page, pageSize)
+  dispatch(actions.setFilter(filter));
+  let data = await usersAPI.getUsers(page, pageSize, filter.term, filter.friend)
   dispatch(actions.toggleIsFetching(false));
   dispatch(actions.setUsers(data.items));
   dispatch(actions.setUsersTotalCount(data.totalCount));
@@ -107,7 +121,8 @@ export const unfollow = (userId: number): ThunkType =>
 
 export default usersReducer;
 
-type InitialStateType = typeof InitialState;
+export type InitialStateType = typeof InitialState;
+export type FilterType = typeof InitialState.filter;
 type ActionsTypes = InferActionsTypes<typeof actions>
 type ThunkType = BaseThunkType<ActionsTypes | FormAction>;
 type DispatchType = Dispatch<ActionsTypes>;
