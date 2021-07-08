@@ -6,7 +6,7 @@ import News from "./components/Content/News/News";
 import Music from "./components/Content/Music/Music";
 import Settings from "./components/Content/Settings/Settings";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import LoginPage from "./components/Login/Login";
+import {LoginPage} from "./components/Login/Login";
 import React, {Component, Suspense} from "react";
 import {connect, Provider} from "react-redux";
 import {compose} from "redux";
@@ -20,7 +20,7 @@ const DialogsContainer = React.lazy(() => import('./components/Content/Dialogs/D
 // import ProfileContainer from "./components/Content/Profile/ProfileContainer";
 const ProfileContainer = React.lazy(() => import('./components/Content/Profile/ProfileContainer'));
 // import UsersContainer from "./components/Content/Users/UsersContainer";
-const UsersContainer = React.lazy(() => import('./components/Content/Users/UsersContainer'));
+const UsersPage = React.lazy(() => import ('./components/Content/Users/UsersContainer'));
 
 type MapPropsType = ReturnType<typeof mapStateToProps>
 type DispatchPropsType = {
@@ -29,7 +29,7 @@ type DispatchPropsType = {
 
 const SuspendedDialogs = witchSuspense(DialogsContainer);
 const SuspendedProfiles = witchSuspense(ProfileContainer);
-const SuspendedUsers = witchSuspense(UsersContainer);
+const SuspendedUsers = witchSuspense(UsersPage);
 
 class App extends Component<MapPropsType & DispatchPropsType> {
   catchAllUnhandleErrors = (e: PromiseRejectionEvent) => {
@@ -55,7 +55,7 @@ class App extends Component<MapPropsType & DispatchPropsType> {
         <div className="content">
           <Route path="/profile/:userId?" render={() => <SuspendedProfiles />}/>
           <Route path="/dialogs" render={() => <SuspendedDialogs />}/>
-          <Route path="/users" render={() => <SuspendedUsers/>}/>
+          <Route path="/users" render={() => <SuspendedUsers pageTitle={"Samurai"}/>}/>
           <Route path="/news" render={() => <News/>}/>
           <Route path="/music" render={() => <Music/>}/>
           <Route path="/settings" render={() => <Settings/>}/>

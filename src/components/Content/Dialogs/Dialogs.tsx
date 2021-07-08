@@ -6,7 +6,7 @@ import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "../../../utils/validators/validators";
 import {createField, Input, Textarea} from "../../common/formsControls/FormControls";
 import {InitialStateType} from "../../../redux/dialogs-reducer";
-import {LoginFormValuesType} from "../../Login/Login";
+import {LoginFormValuesType} from "../../Login/LoginForm";
 
 type OwnPropsType = {
   dialogsPage: InitialStateType
