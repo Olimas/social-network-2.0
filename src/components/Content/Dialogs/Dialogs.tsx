@@ -2,11 +2,10 @@ import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import React from "react";
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {InjectedFormProps, reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "../../../utils/validators/validators";
-import {createField, Input, Textarea} from "../../common/formsControls/FormControls";
+import {createField, Textarea} from "../../common/formsControls/FormControls";
 import {InitialStateType} from "../../../redux/dialogs-reducer";
-import {LoginFormValuesType} from "../../Login/LoginForm";
 
 type OwnPropsType = {
   dialogsPage: InitialStateType
