@@ -27,6 +27,7 @@ const Header: React.FC<PropsType> = (props) => {
             <Menu.Item key="1"><NavLink to="/profile">Profile</NavLink></Menu.Item>
             <Menu.Item key="2"><NavLink to="/dialogs">Dialogs</NavLink></Menu.Item>
             <Menu.Item key="3"><NavLink to="/users">Users</NavLink></Menu.Item>
+            <Menu.Item key="4"><NavLink to="/chat">Chat</NavLink></Menu.Item>
           </Menu>
         </Col>
         <Col span={9}>
