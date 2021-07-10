@@ -34,7 +34,7 @@ const Header: React.FC<PropsType> = (props) => {
         </Col>
         <Col span={4}>
           {isAuth
-            ? <div>
+            ? <div className={s.loginBlock}>
               <Avatar style={{backgroundColor: '#87d068'}} icon={<UserOutlined/>}/>
               {login} <Button onClick={logoutCallback}>Log out</Button></div>
             : <NavLink to={'/login'}><Button>Login</Button></NavLink>}
@@ -43,14 +43,5 @@ const Header: React.FC<PropsType> = (props) => {
     </Header>
   );
 };
-
-// <header className={s.header}>
-//   <img src="https://cdn.logo.com/hotlink-ok/logo-social.png"/>
-//   <div className={s.loginBlock}>
-//     {props.isAuth
-//       ? <div>{props.login} <button onClick={props.logout}>Log out</button></div>
-//       : <NavLink to={'/login'}><button>Login</button></NavLink>}
-//   </div>
-// </header>
 
 export default Header;

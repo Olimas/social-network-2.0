@@ -19,6 +19,7 @@ import {LaptopOutlined, NotificationOutlined, UserOutlined} from '@ant-design/ic
 import s from "./components/Aside/Aside.module.css";
 import Header from './components/Header/Header';
 
+
 const {SubMenu} = Menu;
 const {Content, Footer, Sider} = Layout;
 
@@ -28,6 +29,8 @@ const DialogsContainer = React.lazy(() => import('./components/Content/Dialogs/D
 const ProfileContainer = React.lazy(() => import('./components/Content/Profile/ProfileContainer'));
 // import UsersContainer from "./components/Content/Users/UsersContainer";
 const UsersPage = React.lazy(() => import ('./components/Content/Users/UsersContainer'));
+// import {ChatPage} from "./pages/Chat/ChatPage";
+const ChatPage = React.lazy(() => import ('./pages/Chat/ChatPage'));
 
 type MapPropsType = ReturnType<typeof mapStateToProps>
 type DispatchPropsType = {
@@ -37,6 +40,7 @@ type DispatchPropsType = {
 const SuspendedDialogs = witchSuspense(DialogsContainer);
 const SuspendedProfiles = witchSuspense(ProfileContainer);
 const SuspendedUsers = witchSuspense(UsersPage);
+const SuspendedChat = witchSuspense(ChatPage);
 
 class App extends Component<MapPropsType & DispatchPropsType> {
   catchAllUnhandleErrors = (e: PromiseRejectionEvent) => {
@@ -58,23 +62,6 @@ class App extends Component<MapPropsType & DispatchPropsType> {
       return <Preloader/>
     }
     return (
-
-      // <div className="app-wrapper">
-      //   <HeaderContainer/>
-      //   <Aside/>
-      //   <div className="content">
-      //     <Route path="/profile/:userId?" render={() => <SuspendedProfiles/>}/>
-      //     <Route path="/dialogs" render={() => <SuspendedDialogs/>}/>
-      //     <Route path="/users" render={() => <SuspendedUsers pageTitle={"Samurai"}/>}/>
-      //     <Route path="/news" render={() => <News/>}/>
-      //     <Route path="/music" render={() => <Music/>}/>
-      //     <Route path="/settings" render={() => <Settings/>}/>
-      //     <Route path="/login" render={() => <LoginPage/>}/>
-      //     <Route path="/" render={() => <Redirect to="/profile"/>}/>
-      //   </div>
-      //   <Footer/>
-      // </div>
-
       <Layout>
         <Header />
         <Content style={{padding: '0 50px'}}>
@@ -97,11 +84,12 @@ class App extends Component<MapPropsType & DispatchPropsType> {
                 </SubMenu>
                 <SubMenu key="sub2" icon={<LaptopOutlined/>} title="Developers">
                   <Menu.Item key="3"><NavLink to="/users">Users</NavLink></Menu.Item>
+                  <Menu.Item key="4"><NavLink to="/chat">Chat</NavLink></Menu.Item>
                 </SubMenu>
                 <SubMenu key="sub3" icon={<NotificationOutlined/>} title="Other">
-                  <Menu.Item key="4"><NavLink to="/news">News</NavLink></Menu.Item>
-                  <Menu.Item key="5"><NavLink to="/music">Music</NavLink></Menu.Item>
-                  <Menu.Item key="6"><NavLink to="/settings">Settings</NavLink></Menu.Item>
+                  <Menu.Item key="5"><NavLink to="/news">News</NavLink></Menu.Item>
+                  <Menu.Item key="6"><NavLink to="/music">Music</NavLink></Menu.Item>
+                  <Menu.Item key="7"><NavLink to="/settings">Settings</NavLink></Menu.Item>
                 </SubMenu>
               </Menu>
             </Sider>
@@ -109,6 +97,9 @@ class App extends Component<MapPropsType & DispatchPropsType> {
               <Route path="/profile/:userId?" render={() => <SuspendedProfiles/>}/>
               <Route path="/dialogs" render={() => <SuspendedDialogs/>}/>
               <Route path="/users" render={() => <SuspendedUsers pageTitle={"Samurai"}/>}/>
+
+              <Route path="/chat" render={() => <SuspendedChat/>}/>
+
               <Route path="/news" render={() => <News/>}/>
               <Route path="/music" render={() => <Music/>}/>
               <Route path="/settings" render={() => <Settings/>}/>

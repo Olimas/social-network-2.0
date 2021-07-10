@@ -1,0 +1,10 @@
+.userAvatar {
+  display: inline-block;
+  max-width: 50px;
+}
+.messages {
+  border: 1px solid #000;
+  height: 500px;
+  overflow-y: auto;
+  margin-bottom: 25px;
+}
